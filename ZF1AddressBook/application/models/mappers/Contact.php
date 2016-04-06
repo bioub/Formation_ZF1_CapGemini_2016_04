@@ -26,4 +26,30 @@ class Application_Model_Mapper_Contact
         
         return $result;
     }
+    
+    public function findById($id)
+    {
+//        $rowset = $this->gateway->fetchRow(['id' => $id]);
+        $rowset = $this->gateway->find($id);
+        
+        $row = $rowset->current();
+        
+        if (!$row) {
+            return null;
+        }
+        
+        $entity = new Application_Model_Contact();
+        $entity->setId($row['id'])
+               ->setPrenom($row['prenom'])
+               ->setNom($row['nom'])
+               ->setEmail($row['email'])
+               ->setTelephone($row['telephone']);
+        
+        return $entity;
+    }
+    
+    public function delete($id)
+    {
+        return $this->gateway->delete(array('id = ?' => $id));
+    }
 }

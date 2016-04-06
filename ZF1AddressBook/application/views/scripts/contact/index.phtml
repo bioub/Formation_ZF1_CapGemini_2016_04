@@ -9,6 +9,10 @@ setInterval(function() {
 */
 <?php $this->headScript()->captureEnd(); ?>
 
+<?php if ($this->successMessages) : ?>
+<?=$this->alert(implode('<br>', $this->successMessages))?>
+<?php endif; ?>
+
 <h2>Liste des contacts</h2>
 
 <table class="table table-striped">
@@ -19,6 +23,7 @@ setInterval(function() {
         </td>
         <td>
             <a href="<?=$this->url(['controller' => 'contact', 'action' => 'show', 'id' => $this->escape($c->getId())], null, true)?>" class="btn btn-default btn-xs">Afficher</a>
+            <a href="<?=$this->url(['controller' => 'contact', 'action' => 'delete', 'id' => $this->escape($c->getId())], null, true)?>" class="btn btn-danger btn-xs">Supprimer</a>
         </td>
     </tr>
     <?php endforeach; ?>

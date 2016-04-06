@@ -11,4 +11,12 @@ class Application_Service_Contact
     public function findAll() {
         return $this->mapper->findAll();
     }
+    
+    public function findById($id) {
+        return $this->mapper->findById($id);
+    }
+    
+    public function delete($id) {
+        return $this->mapper->delete($id);
+    }
 }
