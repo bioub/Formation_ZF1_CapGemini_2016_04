@@ -12,20 +12,14 @@ setInterval(function() {
 <h2>Liste des contacts</h2>
 
 <table class="table table-striped">
+    <?php foreach ($this->contacts as $c) : ?>
     <tr>
         <td>
-            Jean Dupont
+            <?=$this->escape($c->getPrenom())?> <?=$this->escape($c->getNom())?>
         </td>
         <td>
-            <a href="<?=$this->url(['controller' => 'contact', 'action' => 'show', 'id' => 123], null, true)?>" class="btn btn-default btn-xs">Afficher</a>
+            <a href="<?=$this->url(['controller' => 'contact', 'action' => 'show', 'id' => $this->escape($c->getId())], null, true)?>" class="btn btn-default btn-xs">Afficher</a>
         </td>
     </tr>
-    <tr>
-        <td>
-            Eric Martin
-        </td>
-        <td>
-            <a href="#">Afficher</a>
-        </td>
-    </tr>
+    <?php endforeach; ?>
 </table>
