@@ -28,14 +28,14 @@ class ContactController extends Zend_Controller_Action
         $this->_redirector = $this->_helper->getHelper('Redirector');
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         /* Initialize action controller here */
-        $this->contactService = new Application_Service_Contact();
+        $this->contactService = Zend_Registry::get('contactService');
     }
 
     // /contact/index ou /contact (index valeur par défaut)
     public function indexAction()
     {
         $this->view->contacts = $this->contactService->findAll();
-        $this->view->successMessages = $this->_flashMessenger->getMessages('success');
+        //$this->view->successMessages = $this->_flashMessenger->getMessages('success');
     }
 
     // /contact/show
@@ -72,7 +72,20 @@ class ContactController extends Zend_Controller_Action
     
     public function addAction()
     {
+        $form = $this->contactService->getForm();
         
+        if ($this->_request->isPost()) {
+            
+            $contact = $this->contactService->insert($this->_request->getPost());
+            
+            if ($contact) {
+                $urlOptions = ['controller' => 'contact', 'action' => 'show',
+                               'id' => $contact->getId()];
+                $this->_redirector->gotoRouteAndExit($urlOptions, null, true);
+            }
+        }
+        
+        $this->view->contactForm = $form;
     }
     
     // /contact/list-by-company

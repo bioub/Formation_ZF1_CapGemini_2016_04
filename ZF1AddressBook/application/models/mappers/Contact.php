@@ -52,4 +52,17 @@ class Application_Model_Mapper_Contact
     {
         return $this->gateway->delete(array('id = ?' => $id));
     }
+    
+    public function insert(Application_Model_Contact $entity)
+    {
+       $data = [];
+       $data['prenom'] = $entity->getPrenom();
+       $data['nom'] = $entity->getNom();
+       $data['email'] = $entity->getEmail();
+       $data['telephone'] = $entity->getTelephone();
+       
+       $id = $this->gateway->insert($data);
+       
+       $entity->setId($id);
+    }
 }

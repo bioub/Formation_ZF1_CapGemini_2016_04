@@ -1,0 +1,17 @@
+<?php $this->headTitle('Liste des contacts') ?>
+
+<h2>Liste des contacts</h2>
+
+<table class="table table-striped">
+    <?php foreach ($this->contacts as $c) : ?>
+    <tr>
+        <td>
+            <?=$this->escapeHtml($c->getPrenom())?> <?=$this->escapeHtml($c->getNom())?>
+        </td>
+        <td>
+            <a href="#" class="btn btn-default btn-xs">Afficher</a>
+            <a href="#" class="btn btn-danger btn-xs">Supprimer</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
